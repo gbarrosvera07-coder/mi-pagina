@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<!-- saved from url=(0157)https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0 -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Hilos y Calma</title>
+    <link href="./index.html._files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./index.html._files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f8f4f0 0%, #faf7f4 100%);
+            overflow-x: hidden;
+        }
+
+        /* Header y navegación */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4a574;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #d4a574;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Secciones principales */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #f8e7d5 0%, #e8d5c4 100%);
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #8b4513;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #5d4e37;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #a0522d;
+            margin-bottom: 1rem;
+        }
+
+        .content-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border-left: 5px solid #d4a574;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: #d4a574;
+            margin-bottom: 1rem;
+        }
+
+        .research-highlight {
+            background: linear-gradient(135deg, #f0e6d6 0%, #e8d5c4 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #8b4513;
+            margin: 2rem 0;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #5d4e37;
+            background: #faf7f4;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #d4a574;
+            margin: 1.5rem 0;
+        }
+
+        .reunion-item {
+            background: #faf7f4;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #d4a574;
+        }
+
+        .reunion-date {
+            font-weight: 600;
+            color: #8b4513;
+            font-size: 1.1rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .tip-icon {
+            color: #d4a574;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .methods-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .methods-list li {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #d4a574;
+        }
+
+        .methods-list h4 {
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            color: #d4a574;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 6rem 1rem 4rem;
+                margin-top: 100px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animaciones suaves */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Delay para animaciones escalonadas */
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#inicio" class="logo">Entre Hilos y Calma</a>
+            <ul class="nav-links">
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#inicio">Inicio</a></li>
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#beneficios">Beneficios</a></li>
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#que-es">¿Qué es?</a></li>
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#experiencia">Experiencia</a></li>
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#tips">Tips</a></li>
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#aprendizaje">Aprendizaje</a></li>
+                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="fade-in">
+            <h1>Entre Hilos y Calma</h1>
+            <p>Descubre los beneficios terapéuticos y creativos del bordado a través de experiencias reales y conocimiento científico</p>
+            <a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#beneficios" class="btn-primary">Explorar Beneficios</a>
+        </div>
+    </section>
+
+    <!-- Beneficios del Bordado -->
+    <section id="beneficios" class="section">
+        <h2 class="fade-in">Beneficios del Bordado</h2>
+        
+        <div class="content-card fade-in">
+            <div class="research-highlight">
+                <h3><i class="fas fa-university"></i> Investigación Científica</h3>
+                <p>El bordado tiene varios beneficios tanto para niños, adolescentes, adultos y adultos mayores. Un ejemplo de esto es una investigación realizada como tesis de la Universidad Nacional del Centro de Perú. La investigación trata de cómo afecta el bordado en la motricidad fina de infantes de 4 años, y como resultado de esa investigación se pudo evidenciar que el <strong>100% de los infantes de la investigación tuvieron una mejora en el desarrollo de su motricidad fina</strong> gracias a la influencia del bordado.</p>
+                
+                <p style="margin-top: 1rem;">Entre las habilidades que los infantes desarrollaron por el bordado están:</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>Habilidad viso-motriz:</strong> Ayuda a los niños a realizar sus primeros garabatos</li>
+                    <li><strong>Motricidad fonética:</strong> Implica un mejor desarrollo de la emisión de sonidos que permite al niño expresarse y comunicarse</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="benefits-grid fade-in">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-hand-paper"></i>
+                </div>
+                <h3>Desarrollo Motriz</h3>
+                <p>El bordado ayuda con el desarrollo de múltiples habilidades motrices, como la habilidad viso-motriz, la motricidad fina y la coordinación.</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Alivio del Estrés</h3>
+                <p>Es una actividad manual y repetitiva que puede ayudar a relajar la mente y el cuerpo, dando tranquilidad al que la práctica.</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Expresión Creativa</h3>
+                <p>El bordado es una excelente forma de expresar tu creatividad, especialmente con bordado libre donde puedes crear diseños únicos sin limitaciones.</p>
+            </div>
+        </div>
+
+        <div class="quote fade-in">
+            <i class="fas fa-quote-left" style="color: #d4a574; margin-right: 0.5rem;"></i>
+            "Estimula la relajación y disminuye la ansiedad, similar al hacer yoga o meditación." - Rincci, 2023
+        </div>
+
+        <div class="content-card fade-in">
+            <h3><i class="fas fa-lightbulb"></i> Beneficios Creativos</h3>
+            <p>El bordado es una muy buena forma de expresar tu creatividad, porque (dependiendo del tipo de bordado que se practique) no te limita a patrones y tienes toda la libertad de hacer el diseño que se te venga a la mente. Y si te aburres puedes cambiar de material, incluyendo lentejuelas, mostacillas o incluso pintura.</p>
+        </div>
+    </section>
+
+    <!-- ¿Qué es el Bordado? -->
+    <section id="que-es" class="section">
+        <h2 class="fade-in">¿Qué es el Bordado?</h2>
+        
+        <div class="content-card fade-in">
+            <p>El bordado es una técnica elaborada de manera artesanal al borde de las telas de estampas, utilizando para ello hilos, lentejuelas, cintas, solventes, cuentas, etc. Se practica con una aguja enhebrada para coser los hilos en la tela y conseguir todo tipo de motivos, patrones, dibujos y letras.</p>
+            
+            <h3 style="margin-top: 2rem;">Tipos de Bordado más Practicados</h3>
+            
+            <div class="benefits-grid" style="margin-top: 1.5rem;">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <h4>Punto de Cruz</h4>
+                    <p>Se forman "X" con los hilos en la tela, creando patrones geométricos y diseños estructurados.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h4>Bordado Libre</h4>
+                    <p>Podrás hacer figuras como flores, letras, etc. por libre sin seguir un patrón rígido.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h4>Bordado en Relieve o 3D</h4>
+                    <p>Tiene volumen y textura, creando efectos tridimensionales en los diseños.</p>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-ribbon"></i>
+                    </div>
+                    <h4>Bordado con Cinta</h4>
+                    <p>Se utilizan cintas de tela en lugar de hilos, creando efectos únicos y voluminosos.</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem; font-style: italic;">El bordado es además de una forma de arte útil para desarrollar la creatividad y mejorar la paciencia.</p>
+        </div>
+    </section>
+
+    <!-- Experiencia con la Señora María Lucía -->
+    <section id="experiencia" class="section">
+        <h2 class="fade-in">Experiencia con la Señora María Lucía</h2>
+        
+        <div class="content-card fade-in">
+            <p>La señora María Lucía es una señora de 78 años que conocí gracias a mi mamá. Junto con ella tuve únicamente 4 reuniones en las que estuvimos practicando la técnica de punto en cruz en distintas fechas. La duración de estas reuniones no era tan larga, tenían una duración de alrededor de 35-40 minutos. Por eso realmente no hubo un cambio demasiado drástico, pero sí hubo cambios y la misma señora María Lucía me lo dijo al momento de preguntarle:</p>
+            
+            <div class="quote">
+                "Realmente creo que esta experiencia sí me sirvió y también me ayudó a recordar conocimiento antiguo."
+            </div>
+            
+            <h3>Cronología de Nuestros Encuentros</h3>
+            
+            <div class="reunion-item">
+                <div class="reunion-date"><i class="fas fa-calendar"></i> 1ra Reunión - 6 de julio</div>
+                <p>En nuestro primer encuentro estaba yo un poco nerviosa porque no estaba segura si iba a poder explicar correctamente o si la señora María Lucía no me iba a entender. En ese primer encuentro la señora María Lucía me comunicó que ella ya había practicado bordado hace muchos años en su época escolar, pero que realmente no se acordaba de cómo era la actividad. Creo que su conocimiento previo, aunque no se acordaba, fue crucial para su proceso. Como era nuestra primera reunión opté por un diseño sencillo de un corazón. Aunque la señora María Lucía tuvo dificultades en el enhebrado de la aguja y en la movilidad de la misma, y algunos problemas con las instrucciones que yo di que tal vez no fueron tan claras como me hubiera gustado, logró hacer el diseño de corazón de forma satisfactoria.</p>
+            </div>
+            
+            <div class="reunion-item">
+                <div class="reunion-date"><i class="fas fa-calendar"></i> 2da Reunión - 26 de julio</div>
+                <p>En nuestra segunda reunión hicimos un diseño de unos cuadrados diagonales, que, aunque no lo parezca, tienen más dificultad que el corazón por la forma diagonal que tienen. Otra cosa que noté fue que la visión de la señora María Lucía mejoró, esto se dio por la mejora en la iluminación que tuvimos porque ese día la reunión fue más temprano cuando aún la luz del sol era fuerte, eso ayudó a la rapidez y entendimiento de la señora María Lucía.</p>
+            </div>
+            
+            <div class="reunion-item">
+                <div class="reunion-date"><i class="fas fa-calendar"></i> 3ra Reunión - 7 de agosto</div>
+                <p>En nuestro tercer encuentro la idea era hacer un diseño de un girasol, pero el diseño, aunque no era de mucha dificultad, fue retador para la visión de la señora María Lucía y no logró terminarlo. Al momento en el que lo terminó ya estaba cometiendo varios errores y equivocándose al momento de atravesar la aguja por la tela.</p>
+            </div>
+            
+            <div class="reunion-item">
+                <div class="reunion-date"><i class="fas fa-calendar"></i> 4ta y Última Reunión - 9 de agosto</div>
+                <p>Aprendiendo de nuestra última reunión cambié a un diseño de mariposa que es más simple visualmente y también cambié a una tela con agujeros más grandes para que pudiera insertar la aguja con más facilidad. Esta fue la reunión más rápida y fluida que tuvimos, el cambio de tela fue justamente lo que necesitaba para que todo fluyera más. Aun así, se presentaban ciertas dificultades, pero fue muy bueno.</p>
+            </div>
+        </div>
+
+        <div class="content-card fade-in">
+            <h3><i class="fas fa-heart"></i> Mi Reflexión Personal</h3>
+            <p>Mis encuentros con la señora María Lucía fueron escasos y breves, pero muchos de ellos me aportaron conocimiento. Desde un principio, sentí nervios, aunque quizás después me supe adaptar y entendí que el enseñar no es sólo dar reglas, sino adaptarse a las necesidades del otro.</p>
+            
+            <p>En cada encuentro se produjeron avances, desde vencer algunas dificultades iniciales en el corazón, hasta darme cuenta de cómo la iluminación o el tipo de tela podrían marcar la diferencia en su procedimiento y desarrollo.</p>
+            
+            <p>El último encuentro fue el más fluido, resultado de permitirnos algunos cambios, que me enseñó la importancia de la flexibilidad o la importancia de la paciencia o de darme cuenta de las necesidades de las personas. Si bien no hubo un cambio tan grande, la experiencia sí fue muy enriquecedora, para ella, porque pudo recordar conocimientos viejos que desarrolló de nuevo, y para mí, porque aprendí el valor de los pequeños logros o de acompañar con la empatía y el apoyo.</p>
+        </div>
+    </section>
+
+    <!-- Tips y Recomendaciones -->
+    <section id="tips" class="section">
+        <h2 class="fade-in">Recomendaciones y Tips</h2>
+        
+        <div class="tips-grid fade-in">
+            <div class="tip-item">
+                <div class="tip-icon">
+                    <i class="fas fa-circle-notch"></i>
+                </div>
+                <h4>Utilizar un Bastidor</h4>
+                <p>Su uso es más que todo recomendado para principiantes, ya que este brinda más estabilidad y mantiene la tela tensa proporcionando puntadas más limpias, y permite que la tela no se arrugue terminando con daños no deseados.</p>
+            </div>
+            
+            <div class="tip-item">
+                <div class="tip-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h4>Mantener una Buena Postura</h4>
+                <p>Esto es importante ya que si no se mantiene una postura correcta se puede acabar con algún tipo de dolor corporal después de realizar la actividad por un largo periodo de tiempo. Lo más recomendado es sentarse en una silla con ambos pies apoyados en el suelo y acomodarse con cojines si es necesario.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Métodos de Aprendizaje -->
+    <section id="aprendizaje" class="section">
+        <h2 class="fade-in">Métodos de Aprendizaje</h2>
+        
+        <div class="content-card fade-in">
+            <p>Para empezar a aprender a bordar no es necesario tener ningún tipo de experiencia previa, es tan simple como buscar un video en internet e intentarlo. Con algo de práctica, tiempo y paciencia se puede aprender a bordar de cualquier manera. Claro puede llegar a ser complicado, pero realmente solo se requiere de esfuerzo.</p>
+            
+            <ul class="methods-list" style="margin-top: 2rem;">
+                <li>
+                    <h4><i class="fas fa-play-circle"></i> Videos en Internet</h4>
+                    <p>La forma más accesible y gratuita de aprender. Solo necesitas buscar tutoriales en línea y practicar siguiendo las instrucciones paso a paso.</p>
+                </li>
+                
+                <li>
+                    <h4><i class="fas fa-chalkboard-teacher"></i> Clases Presenciales</h4>
+                    <p>Bastante recomendado si se quiere obtener mejor entendimiento de las técnicas y se necesita una guía más enfocada. También es muy útil si se tienen dudas de la práctica porque el instructor podrá responder las dudas que se puedan generar.</p>
+                </li>
+                
+                <li>
+                    <h4><i class="fas fa-laptop"></i> Cursos Online y Presenciales</h4>
+                    <p>Similar a las clases, pero estos dependen más de si son en línea o presenciales. Ofrecen estructuras de aprendizaje más organizadas y progresivas.</p>
+                </li>
+                
+                <li>
+                    <h4><i class="fas fa-book"></i> Libros de Bordado</h4>
+                    <p>También se puede aprender a través de libros, aunque es un poco más complicado que el resto de los métodos de aprendizaje, ya que requiere más autodisciplina y práctica individual.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="footer">
+        <div class="footer-content">
+            <h3>Entre Hilos y Calma</h3>
+            <p>Un proyecto educativo sobre los beneficios terapéuticos y creativos del bordado.</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">© 2024 - Desarrollado con amor por el arte del bordado</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animaciones al scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animación
+        document.querySelectorAll('.section > *').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+<script defer="" src="./index.html._files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;97f41586ee8aed31&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.8.0&quot;,&quot;token&quot;:&quot;4edd5f8ec12a48cfa682ab8261b80a79&quot;}" crossorigin="anonymous"></script>
+
+</body></html>
