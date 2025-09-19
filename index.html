@@ -7,6 +7,42 @@
     <link href="./index.html._files/css2" rel="stylesheet">
     <link rel="stylesheet" href="./index.html._files/all.min.css">
     <style>
+  .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #0077b6;
+  }
+
         * {
             margin: 0;
             padding: 0;
@@ -328,21 +364,23 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#inicio" class="logo">Entre Hilos y Calma</a>
-            <ul class="nav-links">
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#inicio">Inicio</a></li>
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#beneficios">Beneficios</a></li>
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#que-es">¿Qué es?</a></li>
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#experiencia">Experiencia</a></li>
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#tips">Tips</a></li>
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#aprendizaje">Aprendizaje</a></li>
-                <li><a href="https://www.genspark.ai/api/code_sandbox_light/preview/eb53d56d-e4ac-4df1-bf97-7edf7de77b08/index.html?canvas_history_id=98732ea9-6c9f-4662-a13b-2c5fc14992b0#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <nav class="nav">
+      <a href="#inicio" class="logo">Entre Hilos y Calma</a>
+
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#que-es">¿Qué es?</a></li>
+        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#tips">Tips</a></li>
+        <li><a href="#aprendizaje">Aprendizaje</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+</body>
+
 
     <!-- Hero Section -->
     <section id="inicio" class="hero">
